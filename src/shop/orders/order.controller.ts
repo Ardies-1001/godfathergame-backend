@@ -5,10 +5,12 @@ import {
   Param,
   Patch,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
@@ -27,6 +29,12 @@ export class OrderController {
   @Get()
   findAll() {
     return this.orderService.findAll();
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('me')
+  findMyOrders(@Req() req: Request & { user: { userId: string } }) {
+    return this.orderService.findByUser(req.user.userId);
   }
 
   @UseGuards(AuthGuard('jwt'))

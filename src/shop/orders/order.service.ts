@@ -87,6 +87,29 @@ export class OrderService {
     });
   }
 
+  async findByUser(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { email: true },
+    });
+
+    if (!user) {
+      return [];
+    }
+
+    return this.prisma.order.findMany({
+      where: { customerEmail: user.email },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        items: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
+  }
+
   async updateStatus(id: string, dto: UpdateOrderStatusDto) {
     return this.prisma.order.update({
       where: { id },

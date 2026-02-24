@@ -13,6 +13,8 @@ import { OrderModule } from './shop/orders/order.module';
 import { ProductModule } from './shop/products/product.module';
 import { UploadModule } from './upload/upload.module';
 
+import { UsersModule } from './users/users.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -23,6 +25,7 @@ import { UploadModule } from './upload/upload.module';
     PrismaModule,
     MailModule,
     AuthModule,
+    UsersModule,
     CategoryModule,
     ProductModule,
     OrderModule,

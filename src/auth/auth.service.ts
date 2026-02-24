@@ -46,7 +46,7 @@ export class AuthService {
         email: input.email.toLowerCase(),
         name: input.name,
         passwordHash,
-        role: 'ADMIN', // Par défaut, on crée des admins pour le moment (dev) ou USER
+        role: 'USER',
       },
       select: {
         id: true,
