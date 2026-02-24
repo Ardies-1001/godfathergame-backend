@@ -5,7 +5,7 @@ import {
   PutObjectCommand,
   DeleteObjectCommand,
 } from '@aws-sdk/client-s3';
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from 'crypto';
 import { extname } from 'path';
 
 @Injectable()
@@ -90,7 +90,7 @@ export class UploadService {
     ext: string,
     folder: string,
   ): Promise<{ url: string; key: string }> {
-    const fileName = `${uuidv4()}${ext}`;
+    const fileName = `${randomUUID()}${ext}`;
     const cleanFolder = folder.replace(/^\/+|\/+$/g, '');
     const key = `${cleanFolder}/${fileName}`;
 

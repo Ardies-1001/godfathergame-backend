@@ -18,11 +18,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       where: { id: payload.sub },
       select: { id: true, role: true, email: true },
     });
-    
+
     if (!user) {
       return null;
     }
-    
+
     return { userId: user.id, role: user.role, email: user.email };
   }
 }
